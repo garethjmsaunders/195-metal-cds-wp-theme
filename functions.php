@@ -290,8 +290,11 @@ function custom_shortcode_genres() {
 
     $post_type = 'post';
     $taxonomy = 'category';
+
+    // exclude category 3 = 'metal'
     $tax_args = array(
-        'order' => 'ASC'
+        'order' => 'ASC',
+        'exclude' => '3',
     );
     $terms = get_terms( $taxonomy, $tax_args );
 
