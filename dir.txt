@@ -1,0 +1,22 @@
+Folder PATH listing for volume Data
+Volume serial number is E4CB-0EF5
+D:.
+³   dir.txt
+³   functions.php
+³   README.md
+³   screenshot.png
+³   single.php
+³   style.css
+³   
+ÃÄÄÄimages
+³       195-metal-cds-bleary.png
+³       195-metal-cds.pub
+³       header-600.jpg
+³       v2osk-IHKBF23A_iw-unsplash.jpg
+³       
+ÀÄÄÄtemplate-parts
+        content-none.php
+        content-search.php
+        content-single.php
+        content.php
+        

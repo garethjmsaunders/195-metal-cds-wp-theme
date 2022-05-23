@@ -1,0 +1,301 @@
+/*
+ Theme Name:   195 metal CDs
+ Theme URI:    https://www.195metalcds.com/
+ Description:  195 metal CDs (ImageGridly child theme)
+ Author:       Gareth J M Saunders
+ Author URI:   https://www.garethjmsaunders.co.uk/
+ Template:     imagegridly
+ Version:      1.2.0
+ License:      GNU General Public License v2 or later
+ License URI:  http://www.gnu.org/licenses/gpl-2.0.html
+ Tags:         blog, news, right-sidebar, post-formats, custom-background, custom-logo, custom-menu, featured-images, threaded-comments, sticky-post, translation-ready
+ Text Domain:  195-metal-cds
+*/
+
+
+
+/* =========================================
+COLOURS
+
+white   #fff
+dark    #111
+aqua    #0ab0a8
+*/
+
+
+
+/* =========================================
+Base Rules
+========================================= */
+
+cite {
+    color: white;
+}
+
+figcaption {
+    color: white;
+    font-size: 0.9rem;
+    opacity: 0.7;
+    text-align: center;
+}
+
+
+
+/* =========================================
+Layout Rules
+========================================= */
+
+
+
+/* =========================================
+Module Rules
+========================================= */
+
+/* @module: Home
+   Homepage album covers
+*/
+.featured-img-box .img-colors h2 {
+    color: #fff !important;
+}
+
+.featured-img-box .img-colors .entry-date {
+    color: #0ab0a8 !important;
+    background-color: #111;
+    padding: 0.5rem;
+}
+
+
+/* @module: Home
+   Homepage page numbers 
+*/
+ul.page-numbers li a {
+    color: #111;
+}
+
+ul.page-numbers li .current {
+    background-color: #0ab0a8;
+    color: white;
+    opacity: 1;
+}
+
+ul.page-numbers li .dots {
+    color: #111;
+}
+
+
+/* @module: Home
+   Category homepage
+*/
+h1.page-title {
+    color: #0ab0a8;
+}
+
+header.fbox.page-header {
+    color: white;
+}
+
+
+/* @module: Post
+   Centre post categories beneath heading 
+*/
+.post-categories {
+    text-align: center;
+}
+
+
+/* @module: Post
+   Centre image
+*/
+
+.entry-content > figure {
+    text-align:  center;
+}
+
+
+/* @module: Post
+   Top review score
+*/
+.top-review-score {
+    font-size: 2em;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+
+/* @module: Post
+   Indent sub genres in sidebar */
+
+#secondary .widget li .children li,
+#secondary .widget li .sub-menu li {
+    padding: 5px 0 5px 0;
+}
+
+#secondary .widget a:hover,
+#secondary a:hover,
+#secondary .widget li a:hover,
+#secondary span.sub-arrow {
+    color: #0ab0a8;
+}
+
+.children li::before {
+    color: #0ab0a8;
+    content: "— ";
+}
+
+
+/* @module: Pages
+   Listing pages heading
+*/
+h2.fulllist-heading, 
+h2.genre-heading,
+h2.scores-heading {
+    color: white !important;
+}
+
+
+/* @module: Footer
+   Fix for the footer search box. 
+   On focus, it was only showing top and right white border
+*/
+.footer-column-three .widget {
+    overflow: visible;
+}
+
+
+
+/* =========================================
+State Rules
+========================================= */
+
+/* Remove underline on link hover */
+.single .entry-content a:hover,
+.page .entry-content a:hover, 
+.comment-content a:hover,
+.comments-area .reply a:hover,
+.logged-in-as a:hover,
+.comments-area .comment-respond a:hover,
+.footer-column-wrapper a:hover {
+    text-decoration: none;
+}
+
+
+footer .tagcloud a:hover,
+.widget_recent_entries li a:hover {
+    color: white;
+}
+
+
+
+/* =========================================
+Theme Rules
+========================================= */
+
+input[type=search] {
+    color: white !important;
+    background: white;
+}
+
+
+input[type=search]:focus,
+input[type=search]:focus-visible,
+input[type=search]:active {
+    border: none !important;
+}
+
+
+
+/* =========================================
+WordPress theme - customise settings
+
+# Upper Widgets
+Background Color: #fff;
+Title Color: #111;
+Text Color: #111;
+Link Color: #111;
+Border Color: #111;
+
+# Navigation Settings
+Logo Color: #111;
+Background Color: #111;
+Link Color: #0ab0a8;
+Border Color: #0ab0a8;
+
+# Sidebar Settings
+Background Color: #111;
+Headline Color: #0ab0a8;
+Link Color: #fff;
+Text Color: #fff;
+
+# Footer Settings
+Headline Color: #fff;
+Text Color: #fff;
+Link Color: #0ab0a8;
+Border Color: #0ab0a8;
+Background Color: #111;
+Copyright Text:  Copyright © 2022 Gareth J M Saunders
+
+# Blog Feed Settings
+Background Color: #fff;
+Image Headline Color: #fff;
+No Image Headline Color: #111;
+Image Date Color: #0ab0a8;
+No Image Date Color: #0ab0a8;
+Button Text Color: #0ab0a8;
+Button Background Color: #fff;
+
+# Posts/Page Settings
+Background Color: #111;
+Headline Color: #0ab0a8;
+Byline Color: #ccc;
+Text Color: #fff;
+Link Color: #0ab0a8;
+Button Background Color: #0ab0a8;
+Button Text Color: #fff;
+Border Color: #111;
+
+# Site Identity
+Logo: [image];
+Site Title: "195 metal CDs";
+Tagline: "Independent metal, hardcore and punk reviews";
+Display Site Title and Tagline: [checked];
+Site Icon: none;
+
+# Background Color
+Background Colour: #333;
+
+# Header Settings
+Title: "Rrröööaaarrr!!!"
+Tagline: "Independent metal, hardcore and punk reviews from Scotland"
+Text Color: #fff;
+Current header: header-600.jpg
+https://unsplash.com/photos/IHKBF23A_iw
+Sunset over the mountains of Skye by v2osk on Unsplash
+
+# Background Image
+Background Image: none;
+
+# Menus
+Primary
+
+# Content Options
+Display date: checked;
+Display categories: checked;
+Display tags: checked;
+Display author: checked;
+Display comment link: checked;
+
+# Widgets
+
+1
+— Search
+— Recent posts
+
+2
+— Most common tags
+
+3
+— Music genres
+
+# Homepage Settings
+Your latest posts
