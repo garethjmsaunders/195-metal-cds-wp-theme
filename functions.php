@@ -1,18 +1,42 @@
 <?php 
 
-// 195 metal CDs functions.php
+/**
+ *********************************************************
+ *  
+ * @package    195 metal CDs child theme
+ * @subpackage functions.php
+ * @version    1.0.0
+ * @author     Gareth J M Saunders
+ * 
+ *  
+ * TABLE OF CONTENTS
+ *
+ * 1. Enqueue child theme CSS
+ * 2. Remove 'posted on' from top of review post
+ * 3. Posts : review scores custom taxonomy : create new custom taxonomy
+ * 4. Posts : review score columns on admin screen
+ * 5. Posts : add meta box for review score to posts
+ * 6. Pages : [fulllist] shortcode
+ * 7. Pages : [genres] shortcode
+ * 8. Pages : [scores] shortcode
+ * 
+ */
+
 
 
 /**
  *********************************************************
- * 1.CHILD THEME CSS
- *
- * Add theme CSS file
- * @package style.css
+ * 1. Enqueue child theme CSS
+ *    Load theme CSS file to WordPress
+ * 
+ *    @package style.css
+ *    @version 1.0.0 2022-05-23
+ * 
  */
+
 add_action( 'wp_enqueue_scripts', 'theme_195_metal_cds_enqueue_styles' );
 function theme_195_metal_cds_enqueue_styles() {
-    $parenthandle = 'parent-style'; // This is 'twentyfifteen-style' for the Twenty Fifteen theme.
+    $parenthandle = 'parent-style';
     $theme = wp_get_theme();
     wp_enqueue_style( $parenthandle, get_template_directory_uri() . '/style.css', 
         array(),  // if the parent theme code has a dependency, copy it to here
@@ -25,17 +49,21 @@ function theme_195_metal_cds_enqueue_styles() {
 }
 
 
+
 /**
  *********************************************************
- * 2. REMOVE 'POSTED ON' FROM TOP OF REVIEW POST
- *
- * Overrules function from files below
- * @package single.php and /template-parts/content-single.php
+ * 2. Remove 'Posted on' from top of review post
+ *    Overrules function from files below
+ * 
+ *    @package     single.php
+ *    @subpackage  template-parts/content-single.php
+ *    @version     1.0.0 2022-05-23
+ * 
  */
-if ( ! function_exists( 'imagegridly_posted_on' ) ) :
-    /**
-     * Prints HTML with meta information for the current post-date/time and author.
-     */
+
+if (!function_exists('imagegridly_posted_on')):
+    
+    // Prints HTML with meta information for the current post-date/time and author
     function imagegridly_posted_on() {
         $time_string = '<time class="entry-date published updated" datetime="%1$s">%2$s</time>';
         if ( get_the_time( 'U' ) !== get_the_modified_time( 'U' ) ) {
@@ -68,13 +96,16 @@ endif;
 
 
 
-
 /**
  *******************************************************************************
- * 3. POSTS : REVIEW SCORES CUSTOM TAXONOMY : CREATE NEW CUSTOM TAXONOMY
- *
- * Register Custom Taxonomy called 'score'
- * @link  http://justintadlock.com/archives/2010/06/10/a-refresher-on-custom-taxonomies
+ * 3. Posts : Create new custom taxonomy for review scores
+ *    New taxonomy called 'score' that acts like standard categories. This will
+ *    allow me to select a score category for use with the [scores] shortcode.
+ * 
+ *    @package WordPress core
+ *    @version 1.0.0 2022-05-23
+ *    @link  http://justintadlock.com/archives/2010/06/10/a-refresher-on-custom-taxonomies
+ * 
  */
 function metalcds_custom_taxonomy()  {
     $labels = array(
@@ -95,16 +126,16 @@ function metalcds_custom_taxonomy()  {
     );
     $args = array(
         'labels'                     => $labels,
-        'hierarchical'               => true,
+        'hierarchical'               => true, // true = like categories; false = like tags
         'public'                     => true,
-        'show_admin_column'          => true,
-        'show_in_menu'               => true,
+        'show_admin_column'          => true, // View on the All Posts admin screen
+        'show_in_menu'               => true, 
         'show_in_nav_menus'          => true,
-        'show_in_rest'          => true,
+        'show_in_rest'               => true, // View in the new blocks editor
         'show_tagcloud'              => true,
         'show_ui'                    => true
     );
- // register_taxonomy( $taxonomy, $object_type, $args );
+    // Register the new 'score' taxonomy for the 'post' post_type.
     register_taxonomy( 'score', 'post', $args );
 }
 add_action( 'init', 'metalcds_custom_taxonomy', 0 );
@@ -113,21 +144,25 @@ add_action( 'init', 'metalcds_custom_taxonomy', 0 );
 
 /**
  *******************************************************************************
- * 4. POSTS : REVIEW SCORE COLUMNS ON ADMIN SCREEN
+ * 4. Posts : Add review score columns to Posts admin screen
+ *    Add review score columns to Posts admin screen
  *
- * Add review score columns to posts admin screen.
- *
- * @package     Posts
- * @link        http://wordpress.stackexchange.com/questions/43970/adding-menu-order-column-to-custom-post-type-admin-screen
- * @link        http://codex.wordpress.org/Plugin_API/Filter_Reference/manage_edit-post_type_columns
+ *    @package Posts
+ *    @version 1.0.0 2022-05-23
+ *    @link    http://wordpress.stackexchange.com/questions/43970/adding-menu-order-column-to-custom-post-type-admin-screen
+ *    @link    http://codex.wordpress.org/Plugin_API/Filter_Reference/manage_edit-post_type_columns
+ * 
  */
+
 function add_reviewscore_admin_columns($columns) {
     $new_columns = array(
         '195metalcds-score' => __('Review score', '195-metal-cds')
     );
     return array_merge($columns, $new_columns);
 }
-// first parameter must be: manage_{post-type}_columns, then calls the function above
+
+// First parameter must be: manage_{post-type}_columns
+// Second parameter names the function to be called
 add_filter('manage_posts_columns','add_reviewscore_admin_columns');
 
 // Show data within the column
@@ -135,7 +170,7 @@ function show_review_score_column($name){
     global $post;
     switch ($name) {
         case '195metalcds-score':
-            $review_score = get_post_meta( get_the_ID(), '195metalcds-score', true );
+            $review_score = get_post_meta(get_the_ID(), '195metalcds-score', true);
             echo ($review_score);
             break;
         default:
@@ -145,20 +180,28 @@ function show_review_score_column($name){
 add_action('manage_posts_custom_column','show_review_score_column');
 
 
+
 /**
  *********************************************************
- * 5. POST : ADD META BOX FOR REVIEW SCORE TO POSTS
+ * 5. Posts : Add meta box to Posts to enter review score
+ *    This defines a meta box, adds an input field,
+ *    populates the input field with any stored meta data,
+ *    and updates or deletes the meta data on page save.
  *
- * Add meta box to Posts item
- * @package     Standard WP post
+ *    @package Standard WP post
+ *    @version 1.0.0 2022-05-23
  */
-$prefix = '195metalcds-';
+
+
+// 1. Define meta box
+
+$prefix   = '195metalcds-';
 $meta_box = array(
-    'id'        => '195metalcds-meta-box',     // HTML 'id' attribute of the edit screen section
-    'title'     => 'Review score %',             // Title of the edit screen section, visible to user
-    'posttype'  => 'post',                                  // The type of write screen on which to show the edit screen section ('post', 'page', 'link', 'attachment' or 'custom_post_type' where custom_post_type is the custom post type slug)
-    'context'   => 'side',                                // The part of the page where the edit screen section should be shown ('normal', 'advanced', or 'side')
-    'priority'  => 'high',                                  // The priority within the context where the boxes should show ('high', 'core', 'default' or 'low')
+    'id'        => '195metalcds-meta-box', // HTML 'id' attribute of the edit screen section
+    'title'     => 'Review score %',       // Title of the edit screen section, visible to user
+    'posttype'  => 'post',                 // The type of write screen on which to show the edit screen section ('post', 'page', 'link', 'attachment' or 'custom_post_type' where custom_post_type is the custom post type slug)
+    'context'   => 'side',                 // The part of the page where the edit screen section should be shown ('normal', 'advanced', or 'side')
+    'priority'  => 'high',                 // The priority within the context where the boxes should show ('high', 'core', 'default' or 'low')
     'fields'    => array
     (
         array
@@ -171,18 +214,26 @@ $meta_box = array(
     )
 );
 add_action('admin_menu', 'mytheme_add_box');
-// ADD META BOX
+
 function mytheme_add_box() {
     global $meta_box;
     add_meta_box($meta_box['id'], $meta_box['title'], 'mytheme_show_box', $meta_box['posttype'], $meta_box['context'], $meta_box['priority']);
 }
-// CALLBACK FUNCTION TO SHOW FIELDS IN META BOX
+
+
+// 2. Callback function (called as a parameter in add_meta_box, above) 
+//    to show input field in meta box and populate it with any data.
+
 function mytheme_show_box() {
     global $meta_box, $post;
+
     // Use nonce for verification
     echo '<input type="hidden" name="mytheme_meta_box_nonce" value="', wp_create_nonce(basename(__FILE__)), '" />';
+    
+    // Loop through the fields array defined in 1. above.
     foreach ($meta_box['fields'] as $field) {
-        // get current post meta data
+
+        // Get current post meta data
         $meta = get_post_meta($post->ID, $field['id'], true);
         ?>
         <p><input type="text" name="<?php echo($field['id']); ?>" id="<?php echo($field['id']); ?>" value="<?php echo($meta); ?>" placeholder="<?php echo($field['placeholder']); ?>" style="width: 50%;" /></p>
@@ -190,18 +241,24 @@ function mytheme_show_box() {
         <?php
     }
 }
-// SAVE DATA FROM META BOX
+
+
+// 3. Save data from meta box on post save
+
 function mytheme_save_data($post_id) {
     global $meta_box;
-    // verify nonce
+
+    // Verify nonce
     if (!wp_verify_nonce($_POST['mytheme_meta_box_nonce'], basename(__FILE__))) {
         return $post_id;
     }
-    // check autosave
+
+    // Check autosave
     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
         return $post_id;
     }
-    // check permissions
+
+    // Check permissions
     if ('page' == $_POST['post_type']) {
         if (!current_user_can('edit_page', $post_id)) {
             return $post_id;
@@ -209,6 +266,7 @@ function mytheme_save_data($post_id) {
     } elseif (!current_user_can('edit_post', $post_id)) {
         return $post_id;
     }
+
     foreach ($meta_box['fields'] as $field) {
         $old = get_post_meta($post_id, $field['id'], true);
         $new = $_POST[$field['id']];
