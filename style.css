@@ -94,6 +94,14 @@ header.fbox.page-header {
     color: white;
 }
 
+/* @module: Home
+   Scores
+*/
+.homepage-score {
+    background-color: rgba(0,0,0,0.5);
+    color: #0ab0a8;
+}
+
 
 /* @module: Post
    Centre post categories beneath heading 

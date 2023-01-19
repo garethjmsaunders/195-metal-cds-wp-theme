@@ -17,14 +17,14 @@
 		<?php endif; ?>
 
 		<span class="content-wrapper">
-			<h2><?php the_title(); ?></h2>
-			<span class="entry-date"><?php echo get_the_date(); ?></span>
+
+			<h2><?php the_title(); ?><?php $review_score = get_post_meta( get_the_ID(), '195metalcds-score', true ); if ($review_score) { echo('<br><span class="homepage-score">' . $review_score . '%</span>');} else { } ?> </h2>
+			<!-- <span class="entry-date"><?php echo get_the_date(); ?></span> -->
 
 		</span>
 		<?php if ( has_post_thumbnail() ) : ?>
 	</span>
 <?php endif; ?>
-
 
 </a>
 </article><!-- #post-<?php the_ID(); ?> -->
