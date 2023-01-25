@@ -5,7 +5,7 @@
  Author:       Gareth J M Saunders
  Author URI:   https://www.garethjmsaunders.co.uk/
  Template:     imagegridly
- Version:      1.3.0
+ Version:      1.3.1
  License:      GNU General Public License v2 or later
  License URI:  http://www.gnu.org/licenses/gpl-2.0.html
  Tags:         blog, news, right-sidebar, post-formats, custom-background, custom-logo, custom-menu, featured-images, threaded-comments, sticky-post, translation-ready
@@ -64,7 +64,7 @@ Module Rules
     padding: 0.5rem;
 }
 
-article.posts-entry:hover {
+.featured-img-box:hover {
     filter: brightness(50%);
 }
 
