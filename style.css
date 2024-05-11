@@ -5,7 +5,7 @@
  Author:       Gareth J M Saunders
  Author URI:   https://www.garethjmsaunders.co.uk/
  Template:     imagegridly
- Version:      1.4.0
+ Version:      1.5.0
  License:      GNU General Public License v2 or later
  License URI:  http://www.gnu.org/licenses/gpl-2.0.html
  Tags:         blog, news, right-sidebar, post-formats, custom-background, custom-logo, custom-menu, featured-images, threaded-comments, sticky-post, translation-ready
@@ -230,6 +230,61 @@ input[type=search]:active {
     border: none !important;
 }
 
+
+/* @module: Posts
+   Reviewer information in post header
+*/
+
+.post-author {
+    color: white;
+}
+
+a.post-author-link:link,
+a.post-author-link:visited
+ {
+    color: #0ab0a8;
+    text-decoration: underline;
+}
+a.post-author-link:hover {
+    color: #0ab0a8;
+    text-decoration: none;
+}
+
+/* @module: author.php
+   Reviewer information in archive header
+*/
+
+h1.author-archive__page-title {
+    color: #0ab0a8;
+    text-transform: uppercase;
+}
+
+.author-archive__page-title--author-name {
+    color:white;
+}
+
+.author-archive__avatar-image {
+    margin: 10px 0 5px 0;
+    text-align: center;
+}
+
+.author-archive__description {
+    font-size: 1.15em;
+    text-align: center
+}
+
+.author-archive__hr {
+    background-color: #0ab0a8;
+    margin-top: 3em;
+}
+
+
+/**/
+
+.no-results,
+.not-found {
+    color: white;
+}
 
 
 /* =========================================

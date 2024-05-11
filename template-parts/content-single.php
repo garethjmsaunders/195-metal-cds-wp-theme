@@ -55,7 +55,10 @@
 				<div class="post-data-positioning">
 					<div class="post-data-text">
 						<?php imagegridly_posted_on(); ?>
-				</div>	
+				</div>
+				<div class="post-author">
+					<p>Reviewed by <a href="<?php echo esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ); ?>" title="<?php echo esc_attr( get_the_author() ); ?>" class="post-author-link"><?php the_author(); ?></a></p>
+				</div>
 				</div>
 			</div>
 		</div><!-- .entry-meta -->
